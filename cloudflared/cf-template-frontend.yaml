@@ -22,7 +22,7 @@ spec:
             - --protocol
             - http2
             - --url
-            - http://frontend.apps.svc.cluster.local:80
+            - http://template-frontend.apps.svc.cluster.local:80
           resources:
             requests:
               cpu: 25m
