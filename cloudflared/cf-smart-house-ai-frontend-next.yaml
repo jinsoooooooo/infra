@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cf-smart-house-ai-frontend-next
+  namespace: cloudflared
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cf-smart-house-ai-frontend-next
+  template:
+    metadata:
+      labels:
+        app: cf-smart-house-ai-frontend-next
+    spec:
+      containers:
+        - name: cloudflared
+          image: cloudflare/cloudflared:latest
+          args:
+            - tunnel
+            - --no-autoupdate
+            - --protocol
+            - http2
+            - --url
+            - http://smart-house-ai-frontend-next.apps.svc.cluster.local:80
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
