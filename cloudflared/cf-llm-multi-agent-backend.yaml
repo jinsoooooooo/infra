@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cf-llm-multi-agent-backend
+  namespace: cloudflared
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cf-llm-multi-agent-backend
+  template:
+    metadata:
+      labels:
+        app: cf-llm-multi-agent-backend
+    spec:
+      containers:
+        - name: cloudflared
+          image: cloudflare/cloudflared:latest
+          args:
+            - tunnel
+            - --no-autoupdate
+            - --protocol
+            - http2
+            - --url
+            - http://llm-multi-agent-backend.apps.svc.cluster.local:80
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
