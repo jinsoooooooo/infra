@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cf-vehicle-manual-bot
+  name: cf-vehicle-manual-bot-api
   namespace: cloudflared
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cf-vehicle-manual-bot
+      app: cf-vehicle-manual-bot-api
   template:
     metadata:
       labels:
-        app: cf-vehicle-manual-bot
+        app: cf-vehicle-manual-bot-api
     spec:
       containers:
         - name: cloudflared
@@ -22,7 +22,7 @@ spec:
             - --protocol
             - http2
             - --url
-            - http://vehicle-manual-bot.apps.svc.cluster.local:80
+            - http://vehicle-manual-bot-api.apps.svc.cluster.local:80
           resources:
             requests:
               cpu: 25m
