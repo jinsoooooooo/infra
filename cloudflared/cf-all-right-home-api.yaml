@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cf-all-right-home-backend
+  name: cf-all-right-home-api
   namespace: cloudflared
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cf-all-right-home-backend
+      app: cf-all-right-home-api
   template:
     metadata:
       labels:
-        app: cf-all-right-home-backend
+        app: cf-all-right-home-api
     spec:
       containers:
         - name: cloudflared
@@ -22,7 +22,7 @@ spec:
             - --protocol
             - http2
             - --url
-            - http://all-right-home-backend.apps.svc.cluster.local:80
+            - http://all-right-home-api.apps.svc.cluster.local:80
           resources:
             requests:
               cpu: 25m
